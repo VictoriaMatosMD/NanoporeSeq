@@ -1,0 +1,70 @@
+#Guia Básico para entender a Tecnologia de Sequenciamento Nanopore por Msc Victória Matos (UnB)
+
+## Tecnologia Nanopore
+
+### Introdução 
+
+Desde o lançamento da tecnologia de sequenciamento de segunda geração (ou NGS como era chamado), poucas foram as áreas que não foram impactadas pelo seu potencial. Mais recentemente, temos observado os impactos do sequenciamento de terceira geração representado, principalmente, pelas tecnologias PacBio e Nanopore.
+
+A tecnologia nanopore foi idealizada com inspiração nas propriedades biológicas de um tipo de proteína que é encontrada naturalmente nas membranas de bactérias, que já foram vistas em cloroplastos e mitocondrias sempre intermediando a passagem de um meio para outro. Os responsáveis pela tecnologia, a **Oxford Nanopore Technologies**, então aplicaram a engenharia genética para obtenção de uma proteína semelhante chamada de nanopore, que dentro desse sistema de escala nano consegue detectar a disrupção iônica provocada por diferentes moléculas. 
+
+![](https://scx1.b-cdn.net/csz/news/800a/2018/energysupply.jpg)
+
+O nanopore é construído numa membrana artificial eletricamente resistente de forma que uma voltagem é aplicada através da membrana. Considerando que as moléculas de DNA são naturalmente carregadas, após uma preparação  da amostra de acordo com cada protocolo, a sequência será detectada. No protocolo 2D, por exemplo, a preparação consiste em colocar os adaptadores e uma proteína motora à fita de DNA. 
+
+### Funcionamento
+
+Durante o sequenciamento, a proteína motora descompacta o DNA de fita dupla e passa uma única fita pelo poro, uma base de cada vez. A presença da molécula de DNA no poro causa uma deflexão na corrente através do poro e essa mudança de corrente se relaciona com as bases exatas presentes no poro naquele momento. O resultado sai na forma de sinais que serão posteriormente interpretados. 
+
+![Gif Nanopore](https://i2.wp.com/www.dnalinkseqlab.com/wp-content/uploads/2018/11/sequencing-animated_0.gif?resize=727%2C319&ssl=1)
+
+
+
+### Fluxo de Trabalho
+
+Simplificadamente, é necessário extrair o DNA, quantificá-lo, fazer a preparação da biblioteca e o carregamento na *Flowcell*, que é o local físico onde o processo com os nanopores acontece. 
+
+![](https://icdn.digitaltrends.com/image/digitaltrends/oxfordnanoporeminion-720x720.jpg)
+
+A seguir temos a interpretação em uma interfase gráfica por exemplo no MinKnow. E, por último, o *Base calling* que é o processo de atribuição de nucleobases aos picos do cromatograma ou às mudanças de corrente elétrica resultantes da passagem dos nucleotídeos pelo nanoporo.
+
+Os sinais brutos ainda precisam ser interpretados e, para isso, são organizados em tipos de arquivos específicos e depois submetidos a softwares que empregam um ou múltiplos modelos de *machine learning* como redes neurais. O objetivo, a partir das diferentes ferramentas de bioinformática é a análise de dados para que, ao final, tenhamos um sequenciamento informativo e com a melhor qualidade possível.
+
+![](https://nanoporetech.com/sites/default/files/s3/analysis/basic-workflow-bg2.svg)
+
+### Aplicações e Limitações
+
+É importante notar que como o sinal de detecção é iônico, ela não se limita às bases nitrogenadas. Além das quatro Adenina,Citosina,Timina e Guanina, não há nada que impeça detecção de Uracila, por exemplo. Não à toa o sequenciamento de RNA, além de detecção de sinais de metilação estão entre as mais celebradas aplicações.
+
+Outra propriedade intrínseca, e maior diferencial dos sequenciadores de segunda geração, é que, por não haver necessidade de amplificação, ou seja síntese, não existe limitação quanto ao tamanho de sequência. São sequenciados fragmentos longos em tempo-real. 
+
+Implicações disso são que dispositivos como o MinION não requerem equipamento de imagem para detectar os nucleotídeos, permitindo que o sistema reduza de tamanho para um nível portátil. O que também reduz em muito seu custo. Assim, o MinION por si só é capaz de tornar o sequenciamento de fragmentos longos acessível a laboratórios menos equipados e disponível de forma portátil às mais diversas necessidades. 
+
+Ainda, existe a possibilidade de parar o sequenciamento assim que oa dados forem suficientemente obtidos e, quando for necessário refazer, a *flowcell* pode ser simplesmente lavada e reutilizada. 
+
+Alguns limitantes, contudo, devem ser observados. A preparação da biblioteca com DNA de alto peso molecular não é necessariamente fácil e o elevado volume de dados pode dificultar seu processamento. Além disso, pesquisadores apontam para baixa acurácia de sequenciamento em comparação aos sequenciadores de segunda geração como o **Illumina**, atual líder mundial nesse mercado.
+
+A acurácia final da sequência de nucleotídeos é influenciada tanto pelo processo de *base calling* como pela química interna do nanoporo. Os softwares de *base calling* incluem *deep* e *machine learning* para converter o sinal elétrico bruto em uma sequência de nucleotídeos. E porque inserções e deleções estão incluídas nos erros, reads oriundos do nanopore não são ótimos para detecção de variações em nucleotídeos únicos (SNV detection), por exemplo.
+
+De maneira geral, tanto a *flowcell* em si, como os protocolos para preparação de amostras e, por fim, os softwares precisam e estão em contante atualização. E, da mesma forma que a *flowcell*, estão constantemente sendo atualizados com resultados positivos.
+
+						
+### Em resumo 
+
+>Pontos positivos:
+>
+> - Gerar fragmentos longos de sequência
+> - Sequenciamento mais rápido com leitura em tempo real 
+> - O sequenciamento pode ser direcionado a moleculas de DNA e RNA
+> - Portabilidade e baixo custo capital
+
+>Pontos Negativos:
+>
+> - Elevada taxa de erros no sequenciamento
+
+
+
+
+## Referências
+
+Nobuaki Kono, Kazuharu Arakawa. Nanopore sequencing: review of potential applications in functional genomics. Development, growth & differentiation, Volume 61, Issue 5, March 2019, Pages 316-326, [DOI: 10.1111/dgd.12608](https://www.onlinelibrary.wiley.com/doi/epdf/10.1111/dgd.12608)
